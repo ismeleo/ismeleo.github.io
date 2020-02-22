@@ -165,47 +165,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
-  "./src/app/_layout/public/index.ts":
-  /*!*****************************************!*\
-    !*** ./src/app/_layout/public/index.ts ***!
-    \*****************************************/
-
-  /*! exports provided: PublicComponent, PUBLIC_ROUTES */
-
-  /***/
-  function srcApp_layoutPublicIndexTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony import */
-
-
-    var _public_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! ./public.component */
-    "./src/app/_layout/public/public.component.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PublicComponent", function () {
-      return _public_component__WEBPACK_IMPORTED_MODULE_0__["PublicComponent"];
-    });
-    /* harmony import */
-
-
-    var _public_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ./public.routes */
-    "./src/app/_layout/public/public.routes.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PUBLIC_ROUTES", function () {
-      return _public_routes__WEBPACK_IMPORTED_MODULE_1__["PUBLIC_ROUTES"];
-    });
-    /***/
-
-  },
-
-  /***/
   "./src/app/_layout/public/public.component.ts":
   /*!****************************************************!*\
     !*** ./src/app/_layout/public/public.component.ts ***!
@@ -285,43 +244,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     })();
     /***/
 
-  },
-
-  /***/
-  "./src/app/_layout/public/public.routes.ts":
-  /*!*************************************************!*\
-    !*** ./src/app/_layout/public/public.routes.ts ***!
-    \*************************************************/
-
-  /*! exports provided: PUBLIC_ROUTES */
-
-  /***/
-  function srcApp_layoutPublicPublicRoutesTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PUBLIC_ROUTES", function () {
-      return PUBLIC_ROUTES;
-    });
-    /* harmony import */
-
-
-    var _public_login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! ./../../public/login */
-    "./src/app/public/login/index.ts");
-
-    var PUBLIC_ROUTES = [{
-      path: '',
-      redirectTo: 'login',
-      pathMatch: 'full'
-    }, {
-      path: 'login',
-      component: _public_login__WEBPACK_IMPORTED_MODULE_0__["LoginComponent"]
-    }];
-    /***/
   },
 
   /***/
@@ -492,6 +414,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "./src/app/secure/scanner/index.ts");
 
     var SECURE_ROUTES = [{
+      path: '',
+      redirectTo: 'location-list',
+      pathMatch: 'full'
+    }, {
       path: 'asset-list',
       component: _secure_asset_list__WEBPACK_IMPORTED_MODULE_0__["AssetListComponent"]
     }, {
@@ -922,38 +848,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _layout_public__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./_layout/public */
-    "./src/app/_layout/public/index.ts");
-    /* harmony import */
-
-
-    var _layout_secure__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _layout_secure__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ./_layout/secure */
     "./src/app/_layout/secure/index.ts");
-    /* harmony import */
 
-
-    var _common_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ./common/auth.guard */
-    "./src/app/common/auth.guard.ts");
-
-    var routes = [{
+    var routes = [
+    /*
+    {
       path: '',
-      component: _layout_public__WEBPACK_IMPORTED_MODULE_2__["PublicComponent"],
+      component: PublicComponent,
       canActivate: [],
-      data: {
-        title: 'Public Views'
-      },
-      children: _layout_public__WEBPACK_IMPORTED_MODULE_2__["PUBLIC_ROUTES"]
-    }, {
+      data: { title: 'Public Views' },
+      children: PUBLIC_ROUTES
+    },
+    */
+    {
       path: '',
-      component: _layout_secure__WEBPACK_IMPORTED_MODULE_3__["SecureComponent"],
-      canActivate: [_common_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]],
+      component: _layout_secure__WEBPACK_IMPORTED_MODULE_2__["SecureComponent"],
+      //canActivate: [AuthGuard],
+      canActivate: [],
       data: {
         title: 'Secure Views'
       },
-      children: _layout_secure__WEBPACK_IMPORTED_MODULE_3__["SECURE_ROUTES"]
+      children: _layout_secure__WEBPACK_IMPORTED_MODULE_2__["SECURE_ROUTES"]
     }, {
       path: '**',
       redirectTo: ''
@@ -970,7 +887,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       factory: function AppRoutingModule_Factory(t) {
         return new (t || AppRoutingModule)();
       },
-      imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+      imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
+        useHash: true
+      })], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
     });
 
     (function () {
@@ -986,7 +905,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-          imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+          imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
+            useHash: true
+          })],
           exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         }]
       }], null, null);
@@ -2245,30 +2166,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.isFirstTime = true;
         this.tryHarder = false;
         this.currentDevice = null;
-        this.formatsEnabled = [_zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_39, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_93, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_128, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].EAN_13, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].EAN_8, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].PDF_417, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].DATA_MATRIX, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].QR_CODE]; //let selectedCamera = localStorage.getItem(CAMERA);
-        //try {
-        // alert('selectedCamera');
-        // alert(selectedCamera);
-        // alert(JSON.parse(selectedCamera));
-        // let json = JSON.parse(selectedCamera);
-        // let camera: MediaDeviceInfo = plainToClass(AAA, JSON.parse(selectedCamera));
-        // alert(camera);
-        // this.currentDevice = camera;
-        //this.currentDevice = plainToClass(MediaDeviceInfo, JSON.parse(selectedCamera));
-
-        /*
-        let camera: MediaDeviceInfo = new MediaDeviceInfo();
-        camera.deviceId = json.deviceId;
-        camera.groupId = json.groupId;
-        camera.kind = json.kind;
-        camera.label = json.label;
-        this.currentDevice = camera;
-        */
-        //} catch {
-        //  alert('error');
-        //}
-        //alert('constructor');
-        //alert(this.currentDevice);
+        this.formatsEnabled = [_zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_39, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_93, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_128, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].EAN_13, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].EAN_8, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].PDF_417, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].DATA_MATRIX, _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].QR_CODE];
       }
 
       _createClass(ScannerComponent, [{
@@ -2283,6 +2181,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "scanSuccess",
         value: function scanSuccess(value) {
+          this.beep();
+
           this._dialogRef.close(value);
         }
       }, {
@@ -2306,7 +2206,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function onAutostarted() {
           var _this3 = this;
 
-          //alert('auto started');
           this.isFirstTime = false;
           this.currentDevice = this.scanner.device;
           var previousSelectedCameraLabel = localStorage.getItem(PREVIOUS_SELECTED_CAMERA_LABEL);
@@ -2315,7 +2214,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (!previousSelectedCameraLabel) {
             // first time use scanner
             localStorage.setItem(PREVIOUS_SELECTED_CAMERA_LABEL, currentSelectedCameraLabel);
-            this.showScanner = true; //alert('1');
+            this.showScanner = true;
           } else {
             // not first time use scanner
             if (previousSelectedCameraLabel !== currentSelectedCameraLabel) {
@@ -2324,21 +2223,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 _this3.currentDevice = _this3.availableDevices.find(function (device) {
                   return device.label === previousSelectedCameraLabel;
                 });
-                _this3.showScanner = true; //alert('2');
+                _this3.showScanner = true;
               }, 1000 * 1);
             } else {
-              this.showScanner = true; //alert('3');
+              this.showScanner = true;
             }
           }
         }
       }, {
         key: "onDeviceChange",
         value: function onDeviceChange() {
-          //alert('device change');
-          //alert(this.currentDevice.label);
           if (!this.isFirstTime) {
-            localStorage.setItem(PREVIOUS_SELECTED_CAMERA_LABEL, this.currentDevice.label); //alert(this.currentDevice.label);
+            localStorage.setItem(PREVIOUS_SELECTED_CAMERA_LABEL, this.currentDevice.label);
           }
+        }
+      }, {
+        key: "beep",
+        value: function beep() {
+          var audio = new Audio();
+          audio.src = "../../../assets/beep.wav";
+          audio.load();
+          audio.play();
         }
       }]);
 

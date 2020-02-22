@@ -110,27 +110,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/app/_layout/public/index.ts":
-/*!*****************************************!*\
-  !*** ./src/app/_layout/public/index.ts ***!
-  \*****************************************/
-/*! exports provided: PublicComponent, PUBLIC_ROUTES */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _public_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./public.component */ "./src/app/_layout/public/public.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PublicComponent", function() { return _public_component__WEBPACK_IMPORTED_MODULE_0__["PublicComponent"]; });
-
-/* harmony import */ var _public_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./public.routes */ "./src/app/_layout/public/public.routes.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PUBLIC_ROUTES", function() { return _public_routes__WEBPACK_IMPORTED_MODULE_1__["PUBLIC_ROUTES"]; });
-
-
-
-
-
-/***/ }),
-
 /***/ "./src/app/_layout/public/public.component.ts":
 /*!****************************************************!*\
   !*** ./src/app/_layout/public/public.component.ts ***!
@@ -164,29 +143,6 @@ PublicComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
                 styleUrls: ['./public.component.sass']
             }]
     }], function () { return []; }, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/_layout/public/public.routes.ts":
-/*!*************************************************!*\
-  !*** ./src/app/_layout/public/public.routes.ts ***!
-  \*************************************************/
-/*! exports provided: PUBLIC_ROUTES */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUBLIC_ROUTES", function() { return PUBLIC_ROUTES; });
-/* harmony import */ var _public_login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../public/login */ "./src/app/public/login/index.ts");
-
-const PUBLIC_ROUTES = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    {
-        path: 'login',
-        component: _public_login__WEBPACK_IMPORTED_MODULE_0__["LoginComponent"]
-    }
-];
 
 
 /***/ }),
@@ -268,6 +224,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SECURE_ROUTES = [
+    { path: '', redirectTo: 'location-list', pathMatch: 'full' },
     { path: 'asset-list', component: _secure_asset_list__WEBPACK_IMPORTED_MODULE_0__["AssetListComponent"] },
     { path: 'location-list', component: _secure_location_list__WEBPACK_IMPORTED_MODULE_1__["LocationListComponent"] },
     { path: 'location', component: _secure_location__WEBPACK_IMPORTED_MODULE_2__["LocationComponent"] },
@@ -488,43 +445,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _layout_public__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_layout/public */ "./src/app/_layout/public/index.ts");
-/* harmony import */ var _layout_secure__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_layout/secure */ "./src/app/_layout/secure/index.ts");
-/* harmony import */ var _common_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/auth.guard */ "./src/app/common/auth.guard.ts");
-
-
+/* harmony import */ var _layout_secure__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_layout/secure */ "./src/app/_layout/secure/index.ts");
 
 
 
 
 
 const routes = [
+    /*
     {
-        path: '',
-        component: _layout_public__WEBPACK_IMPORTED_MODULE_2__["PublicComponent"],
-        canActivate: [],
-        data: { title: 'Public Views' },
-        children: _layout_public__WEBPACK_IMPORTED_MODULE_2__["PUBLIC_ROUTES"]
+      path: '',
+      component: PublicComponent,
+      canActivate: [],
+      data: { title: 'Public Views' },
+      children: PUBLIC_ROUTES
     },
+    */
     {
         path: '',
-        component: _layout_secure__WEBPACK_IMPORTED_MODULE_3__["SecureComponent"],
-        canActivate: [_common_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]],
+        component: _layout_secure__WEBPACK_IMPORTED_MODULE_2__["SecureComponent"],
+        //canActivate: [AuthGuard],
+        canActivate: [],
         data: { title: 'Secure Views' },
-        children: _layout_secure__WEBPACK_IMPORTED_MODULE_3__["SECURE_ROUTES"]
+        children: _layout_secure__WEBPACK_IMPORTED_MODULE_2__["SECURE_ROUTES"]
     },
     { path: '**', redirectTo: '' }
 ];
 class AppRoutingModule {
 }
 AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
         _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
                 exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
             }]
     }], null, null); })();
@@ -1195,29 +1151,6 @@ class ScannerComponent {
             _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].DATA_MATRIX,
             _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].QR_CODE
         ];
-        //let selectedCamera = localStorage.getItem(CAMERA);
-        //try {
-        // alert('selectedCamera');
-        // alert(selectedCamera);
-        // alert(JSON.parse(selectedCamera));
-        // let json = JSON.parse(selectedCamera);
-        // let camera: MediaDeviceInfo = plainToClass(AAA, JSON.parse(selectedCamera));
-        // alert(camera);
-        // this.currentDevice = camera;
-        //this.currentDevice = plainToClass(MediaDeviceInfo, JSON.parse(selectedCamera));
-        /*
-        let camera: MediaDeviceInfo = new MediaDeviceInfo();
-        camera.deviceId = json.deviceId;
-        camera.groupId = json.groupId;
-        camera.kind = json.kind;
-        camera.label = json.label;
-        this.currentDevice = camera;
-        */
-        //} catch {
-        //  alert('error');
-        //}
-        //alert('constructor');
-        //alert(this.currentDevice);
     }
     ngOnInit() {
         setTimeout(() => {
@@ -1225,6 +1158,7 @@ class ScannerComponent {
         }, 1000 * 2);
     }
     scanSuccess(value) {
+        this.beep();
         this._dialogRef.close(value);
     }
     stopScan() {
@@ -1238,7 +1172,6 @@ class ScannerComponent {
         this.hasDevices = Boolean(devices && devices.length);
     }
     onAutostarted() {
-        //alert('auto started');
         this.isFirstTime = false;
         this.currentDevice = this.scanner.device;
         let previousSelectedCameraLabel = localStorage.getItem(PREVIOUS_SELECTED_CAMERA_LABEL);
@@ -1246,29 +1179,29 @@ class ScannerComponent {
         if (!previousSelectedCameraLabel) { // first time use scanner
             localStorage.setItem(PREVIOUS_SELECTED_CAMERA_LABEL, currentSelectedCameraLabel);
             this.showScanner = true;
-            //alert('1');
         }
         else { // not first time use scanner
             if (previousSelectedCameraLabel !== currentSelectedCameraLabel) { // previous selected camera is not same as the current default camera, change it to previous selected camera
                 setTimeout(() => {
                     this.currentDevice = this.availableDevices.find(device => device.label === previousSelectedCameraLabel);
                     this.showScanner = true;
-                    //alert('2');
                 }, 1000 * 1);
             }
             else {
                 this.showScanner = true;
-                //alert('3');
             }
         }
     }
     onDeviceChange() {
-        //alert('device change');
-        //alert(this.currentDevice.label);
         if (!this.isFirstTime) {
             localStorage.setItem(PREVIOUS_SELECTED_CAMERA_LABEL, this.currentDevice.label);
-            //alert(this.currentDevice.label);
         }
+    }
+    beep() {
+        let audio = new Audio();
+        audio.src = "../../../assets/beep.wav";
+        audio.load();
+        audio.play();
     }
 }
 ScannerComponent.ɵfac = function ScannerComponent_Factory(t) { return new (t || ScannerComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"])); };
