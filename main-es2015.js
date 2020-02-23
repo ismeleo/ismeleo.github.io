@@ -1091,7 +1091,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/dropdown */ "./node_modules/primeng/__ivy_ngcc__/fesm2015/primeng-dropdown.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/button */ "./node_modules/primeng/__ivy_ngcc__/fesm2015/primeng-button.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
 
 
@@ -1102,44 +1101,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-function ScannerComponent_ng_container_10_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Waiting for camera permission.");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
-} }
-function ScannerComponent_ng_container_11_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "You denied the camera permission, please grant the camera permission in order to use the scanner function.");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
-} }
-function ScannerComponent_ng_container_12_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Couldn't check for devices.");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
-} }
-function ScannerComponent_ng_container_13_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "No camera was found.");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
-} }
 const PREVIOUS_SELECTED_CAMERA_LABEL = 'PREVIOUS_SELECTED_CAMERA_LABEL';
 class ScannerComponent {
     constructor(data, _dialogRef) {
         this.data = data;
         this._dialogRef = _dialogRef;
-        this.delayShowCheckingMessage = true;
+        this.cameraStarted = false;
         this.showScanner = false;
         this.isFirstTime = true;
         this.tryHarder = false;
+        this.hasDevices = true;
+        this.hasPermission = true;
+        this.availableDevices = [];
         this.currentDevice = null;
         this.formatsEnabled = [
             _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].CODE_39,
@@ -1151,11 +1124,12 @@ class ScannerComponent {
             _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].DATA_MATRIX,
             _zxing_library__WEBPACK_IMPORTED_MODULE_2__["BarcodeFormat"].QR_CODE
         ];
+        history.pushState(null, null, location.href);
+        window.onpopstate = function (event) {
+            this.stopScan();
+        };
     }
     ngOnInit() {
-        setTimeout(() => {
-            this.delayShowCheckingMessage = false;
-        }, 1000 * 2);
     }
     scanSuccess(value) {
         this.beep();
@@ -1171,7 +1145,11 @@ class ScannerComponent {
         this.availableDevices = devices;
         this.hasDevices = Boolean(devices && devices.length);
     }
+    onCamerasNotFound(data) {
+        this.availableDevices = null;
+    }
     onAutostarted() {
+        this.cameraStarted = true;
         this.isFirstTime = false;
         this.currentDevice = this.scanner.device;
         let previousSelectedCameraLabel = localStorage.getItem(PREVIOUS_SELECTED_CAMERA_LABEL);
@@ -1199,7 +1177,7 @@ class ScannerComponent {
     }
     beep() {
         let audio = new Audio();
-        audio.src = "../../../assets/beep.wav";
+        audio.src = "/assets/beep.wav";
         audio.load();
         audio.play();
     }
@@ -1210,53 +1188,46 @@ ScannerComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.scanner = _t.first);
-    } }, decls: 14, vars: 13, consts: [[1, "scanner-shell", 3, "hidden"], [2, "position", "absolute", "left", "0", "right", "0", "top", "0", "bottom", "0", "background", "white"], [2, "position", "absolute", "top", "0", "bottom", "0", "left", "0", "right", "0", "background", "white", "z-index", "2000", 3, "hidden"], [2, "position", "absolute", "top", "10px", "right", "10px", "z-index", "1500", "background-color", "white"], ["optionLabel", "label", 2, "vertical-align", "top", 3, "options", "ngModel", "ngModelChange"], ["pButton", "", "type", "button", "icon", "pi pi-times", 1, "ui-button-danger", 3, "click"], [2, "position", "absolute", "z-index", "1000", 3, "tryHarder", "formats", "device", "deviceChange", "autostarted", "scanSuccess", "permissionResponse", "camerasFound"], [2, "position", "absolute", "top", "50%", "left", "50%", "-moz-transform", "translateX(-50%) translateY(-50%)", "-webkit-transform", "translateX(-50%) translateY(-50%)", "transform", "translateX(-50%) translateY(-50%)", "z-index", "500", 3, "hidden"], [3, "hidden"], [4, "ngIf"]], template: function ScannerComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 13, vars: 10, consts: [[2, "position", "absolute", "left", "0", "right", "0", "top", "0", "bottom", "0", "background", "white", "z-index", "999999"], [2, "position", "absolute", "top", "0", "bottom", "0", "left", "0", "right", "0", "background", "white", "z-index", "2000", 3, "hidden"], [2, "position", "absolute", "left", "0", "right", "0", "top", "0px", "padding", "10px", "z-index", "3000"], ["optionLabel", "label", 2, "vertical-align", "top", "float", "left", 3, "hidden", "options", "ngModel", "ngModelChange"], ["pButton", "", "type", "button", "icon", "pi pi-times", 1, "ui-button-danger", 2, "margin-left", "20px", "float", "right", 3, "click"], [2, "position", "absolute", "z-index", "1000", 3, "tryHarder", "formats", "device", "deviceChange", "autostarted", "scanSuccess", "permissionResponse", "camerasFound", "camerasNotFound"], [2, "position", "absolute", "top", "50%", "left", "50%", "-moz-transform", "translateX(-50%) translateY(-50%)", "-webkit-transform", "translateX(-50%) translateY(-50%)", "transform", "translateX(-50%) translateY(-50%)", "z-index", "2500", 3, "hidden"], [3, "hidden"]], template: function ScannerComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "header", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "p-dropdown", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function ScannerComponent_Template_p_dropdown_ngModelChange_4_listener($event) { return ctx.currentDevice = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "header", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "p-dropdown", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function ScannerComponent_Template_p_dropdown_ngModelChange_3_listener($event) { return ctx.currentDevice = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "button", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ScannerComponent_Template_button_click_5_listener($event) { return ctx.stopScan(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "zxing-scanner", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("deviceChange", function ScannerComponent_Template_zxing_scanner_deviceChange_6_listener($event) { return ctx.onDeviceChange(); })("autostarted", function ScannerComponent_Template_zxing_scanner_autostarted_6_listener($event) { return ctx.onAutostarted(); })("scanSuccess", function ScannerComponent_Template_zxing_scanner_scanSuccess_6_listener($event) { return ctx.scanSuccess($event); })("permissionResponse", function ScannerComponent_Template_zxing_scanner_permissionResponse_6_listener($event) { return ctx.onHasPermission($event); })("camerasFound", function ScannerComponent_Template_zxing_scanner_camerasFound_6_listener($event) { return ctx.onCamerasFound($event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, " Loading Camera... ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ScannerComponent_Template_button_click_4_listener($event) { return ctx.stopScan(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "zxing-scanner", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("deviceChange", function ScannerComponent_Template_zxing_scanner_deviceChange_5_listener($event) { return ctx.onDeviceChange(); })("autostarted", function ScannerComponent_Template_zxing_scanner_autostarted_5_listener($event) { return ctx.onAutostarted(); })("scanSuccess", function ScannerComponent_Template_zxing_scanner_scanSuccess_5_listener($event) { return ctx.scanSuccess($event); })("permissionResponse", function ScannerComponent_Template_zxing_scanner_permissionResponse_5_listener($event) { return ctx.onHasPermission($event); })("camerasFound", function ScannerComponent_Template_zxing_scanner_camerasFound_5_listener($event) { return ctx.onCamerasFound($event); })("camerasNotFound", function ScannerComponent_Template_zxing_scanner_camerasNotFound_5_listener($event) { return ctx.onCamerasNotFound($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](10, ScannerComponent_ng_container_10_Template, 3, 0, "ng-container", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, ScannerComponent_ng_container_11_Template, 3, 0, "ng-container", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, ScannerComponent_ng_container_12_Template, 3, 0, "ng-container", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, ScannerComponent_ng_container_13_Template, 3, 0, "ng-container", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Loading Camera...");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "No camera permission.");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](12, "No camera was found.");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", !ctx.hasDevices);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.showScanner);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("options", ctx.availableDevices)("ngModel", ctx.currentDevice);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.availableDevices === null || ctx.availableDevices.length === 0)("options", ctx.availableDevices)("ngModel", ctx.currentDevice);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("tryHarder", ctx.tryHarder)("formats", ctx.formatsEnabled)("device", ctx.currentDevice);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", !ctx.delayShowCheckingMessage);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.cameraStarted || ctx.availableDevices === null);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.hasPermission);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.delayShowCheckingMessage);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.hasPermission === undefined);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.hasPermission === false);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.hasDevices === undefined);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.hasDevices === false);
-    } }, directives: [primeng_dropdown__WEBPACK_IMPORTED_MODULE_4__["Dropdown"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgModel"], primeng_button__WEBPACK_IMPORTED_MODULE_6__["ButtonDirective"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_3__["ZXingScannerComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlY3VyZS9zY2FubmVyL3NjYW5uZXIuY29tcG9uZW50LnNhc3MifQ== */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.hasDevices);
+    } }, directives: [primeng_dropdown__WEBPACK_IMPORTED_MODULE_4__["Dropdown"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgModel"], primeng_button__WEBPACK_IMPORTED_MODULE_6__["ButtonDirective"], _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_3__["ZXingScannerComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlY3VyZS9zY2FubmVyL3NjYW5uZXIuY29tcG9uZW50LnNhc3MifQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ScannerComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
